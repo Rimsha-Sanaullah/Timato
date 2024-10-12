@@ -12,7 +12,7 @@ const Navbar = () => {
   const [settingsOpen, setSettingsOpen] = React.useState(false);
 
   const handleSettingsClick = () => {
-    setSettingsOpen((prev) => !prev); // Toggle settings visibility
+    setSettingsOpen((prev) => !prev);
   };
 
   return (
@@ -21,6 +21,7 @@ const Navbar = () => {
       sx={{
         backgroundColor: '#C9184A',
         boxShadow: '0px 2px 4px #FF4D6D',
+        width: '100vw',
       }}
     >
       <Container maxWidth="xl">

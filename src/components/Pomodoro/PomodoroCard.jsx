@@ -1,4 +1,4 @@
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import MenuOption from './MenuOption';
 import PomodoroContent from './PomodoroContent';
@@ -38,25 +38,29 @@ const PomodoroCard = () => {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'column', // Stack the content vertically
+          flexDirection: 'column', 
           gap: 2,
-          width: '80%',           // Cover 80% of the screen
-          maxWidth: 900,         // Maximum width
+          mt:{
+            md: -10,
+            xl: -15,
+            sm: -10,
+          },
+          width: '80%',          
+          maxWidth: 900,        
           backgroundColor: '#FF4D6D',
-          padding: 2,            // Add padding
+          padding: 2,          
           borderRadius: 3,
         }}
       >
-        {/* Menu Options in a row */}
+
         <Box sx={{ display: 'flex', justifyContent: 'space-around', gap: 3 }}>
           <MenuOption label="Pomodoro Card" onClick={() => handleOptionClick('Pomodoro Card')} selected={selectedOption === 'Pomodoro Card'} />
           <MenuOption label="Short Break" onClick={() => handleOptionClick('Short Break')} selected={selectedOption === 'Short Break'} />
           <MenuOption label="Long Break" onClick={() => handleOptionClick('Long Break')} selected={selectedOption === 'Long Break'} />
         </Box>
         
-        {/* Content based on selected option */}
         <Box sx={{ color: 'white', textAlign: 'center', mt: 2 }}>
-          <h3>{selectedOption}</h3>
+          <Typography variant='h4' sx={{fontFamily: 'Hepta Slab'}}>{selectedOption}</Typography>
           {renderContent()}
         </Box>
       </Box>

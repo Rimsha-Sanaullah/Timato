@@ -1,4 +1,3 @@
-// MenuOption.jsx
 import React from 'react';
 import { Typography } from '@mui/material';
 
@@ -9,14 +8,23 @@ const MenuOption = ({ label, onClick, selected }) => {
       color="white"
       onClick={onClick}
       sx={{
-        backgroundColor: selected ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)', // Darker background if selected
+        backgroundColor: selected ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)', 
         borderRadius: 2,
-        padding: '9px 11px', // Adjust padding for better click area
+        padding: {
+          xs: '10px 12px',  
+          sm: '8px 10px',  
+          md: '9px 11px',   
+        },
         textAlign: 'center',
         cursor: 'pointer',
-        flexGrow: 1, // Allow the option to grow and fill space equally
+        flexGrow: 1, 
         '&:hover': {
-          backgroundColor: 'rgba(255, 255, 255, 0.5)', // Change on hover
+          backgroundColor: { xs: 'rgba(255, 255, 255, 0.3)', md: 'rgba(255, 255, 255, 0.5)' },
+        },
+        fontFamily: 'Hepta Slab',
+        fontSize: {
+          xs: '1rem',  
+          md: '1.2rem',
         },
       }}
     >

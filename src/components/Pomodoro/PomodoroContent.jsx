@@ -4,6 +4,7 @@ import { Box, Typography, Button } from '@mui/material';
 const PomodoroContent = () => {
   const [timeLeft, setTimeLeft] = useState(25 * 60); // 25 minutes in seconds
   const [isRunning, setIsRunning] = useState(false);
+  const [message, setMessage] = useState(''); // State to display a message when the timer ends
 
   useEffect(() => {
     let timer;
@@ -11,6 +12,10 @@ const PomodoroContent = () => {
       timer = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
+    } else if (timeLeft === 0) {
+      // When timer reaches 0, display a message
+      setIsRunning(false);
+      setMessage("Well done! You've completed your session. 🎉");
     }
 
     // Cleanup the timer on unmount or when the timer stops
@@ -19,6 +24,10 @@ const PomodoroContent = () => {
 
   const handleStartPause = () => {
     setIsRunning((prev) => !prev);
+    if (timeLeft === 0) {
+      setTimeLeft(25 * 60);
+      setMessage(''); 
+    }
   };
 
   const formatTime = (seconds) => {
@@ -29,34 +38,60 @@ const PomodoroContent = () => {
 
   return (
     <Box sx={{ textAlign: 'center', mt: 4 }}>
-      <Typography 
-        variant="h1" 
-        sx={{ 
-          color: 'white', 
-          fontFamily: 'Arial, sans-serif', // Change the font family for a smoother look
-          fontWeight: 'bold', // Make the font bold for emphasis
-          letterSpacing: '2px', // Add spacing between letters
-          mb: 2, // Margin below the timer
-        }}
-      >
-        {formatTime(timeLeft)}
-      </Typography>
+      {timeLeft > 0 ? (
+        <Typography 
+          variant="h1" 
+          sx={{ 
+            color: 'white', 
+            fontFamily: 'Hepta Slab', 
+            fontWeight: 'bold', 
+            letterSpacing: '2px', 
+            mb: 2, 
+          }}
+        >
+          {formatTime(timeLeft)}
+        </Typography>
+      ) : (
+        <Typography 
+          variant="h4" 
+          sx={{ 
+            color: '#4CAF50', 
+            fontFamily: 'Hepta Slab', 
+            fontWeight: 'normal', 
+            letterSpacing: '1px', 
+            mb: 2, 
+          }}
+        >
+          {message}
+        </Typography>
+      )}
       <Button 
         variant="contained" 
         onClick={handleStartPause} 
         sx={{ 
           marginTop: 3,
-          backgroundColor: '#4CAF50', // Green color for the button
-          color: 'white', // White text color for better contrast
+          backgroundColor: 'white',
+          color: '#4CAF50', 
+          padding: '12px 24px', 
+          borderRadius: '30px', 
+          fontSize: '1.2rem', 
+          fontWeight: 'bold', 
+          boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', 
+          transition: 'all 0.3s ease-in-out', 
           '&:hover': {
-            backgroundColor: '#45a049', // Darker green on hover
+            backgroundColor: '#f9f9f9', 
+            color: '#45a049', 
+            transform: 'translateY(-2px)', 
+            boxShadow: '0px 8px 15px rgba(0, 0, 0, 0.2)',
           },
-          padding: '10px 20px', // Padding for the button
-          borderRadius: '20px', // Rounded edges for a smoother look
-          fontSize: '1.2rem', // Slightly larger font size for better visibility
+          '&:active': {
+            transform: 'translateY(0)', 
+            boxShadow: '0px 4px 10px rgba(0, 0, 0, 0.1)', 
+          },
+          fontFamily: 'Hepta Slab',
         }}
       >
-        {isRunning ? 'Pause' : 'Start'}
+        {isRunning ? 'Pause' : timeLeft === 0 ? 'Restart' : 'Start'}
       </Button>
     </Box>
   );
